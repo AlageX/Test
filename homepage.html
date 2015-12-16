@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>仿小米首页</title>
+	<style type="text/css">
+	/*reset*/
+	*{margin: 0;padding: 0;outline: 0;border: 0;font-size: 100%;background: transparent;vertical-align: baseline;}
+	ol,ul{list-style: none;}
+	a{text-decoration: none;color:#333;}
+	a:hover{color:#ff6700;}
+	body{font-size: 14px;background-color: #fff;}
+	.container{width: 1226px; height:100%;margin: 0 auto;position:relative;}
+	.clearfix{*zoom:1;}
+	.clearfix:after,.clear:before{content:'.';display: block;clear: both;visibility: hidden;height: 0;}
+
+	/*应用iconfont矢量图标*/
+	@font-face {
+  		font-family: 'iconfont';
+  		src: url('http://at.alicdn.com/t/font_1449910238_8691242.eot'); /* IE9*/
+  		src: url('http://at.alicdn.com/t/font_1449910238_8691242.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  		url('http://at.alicdn.com/t/font_1449910238_8691242.woff') format('woff'), /* chrome、firefox */
+  		url('http://at.alicdn.com/t/font_1449910238_8691242.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+ 		url('http://at.alicdn.com/t/font_1449910238_8691242.svg#iconfont') format('svg'); /* iOS 4.1- */
+	}
+                    
+                   
+	.iconfont{font-family: 'iconfont';font-style: normal;}
+
+	/*header*/
+	.header{width: 100%;height: 40px;background-color: #333;line-height: 40px;font-size: 13px;color: #424242;position: relative;z-index: 50;}
+	.header a{color:#888;margin: 0 5px;display:inline-block;}
+	.header a:hover{color:#fff;}
+	.header-nav{float: left;}
+	.header-userinfo,.header-cart{float: right;}
+	.header-cart{height:40px;width:120px;text-align: center;margin-left: 10px;}
+	.header-cart a{margin: 0;}
+	.cart-trigger{display: block;height:100%;width: 100%;}
+	.cart-trigger i{font-size: 16px;margin-right: 3px;}
+	.header-cart .cart-trigger-normal{background-color: #424242;color:#888;}
+	.header-cart .cart-trigger-em{background-color: #ff6700;color: #fff;}
+	.header-cart .cart-trigger-hover{background-color: #fff;color: #ff6700;}
+	.header-cart a.cart-trigger-hover:hover{color: #ff6700;}
+	.cart-items{position: absolute;right: 0;top: 40px;background-color: #fff;box-shadow: 0 2px 10px rgba(0,0,0,0.18);width: 300px;padding-top: 10px;display: none;}
+	.tip{display:block;padding: 10px 0 20px 0;}
+
+	.cart-items a{color: #333;display: inline;}
+	.cart-items a:hover{color:#ff6700;}
+	.cart-items ul{padding: 0 20px;font-size: 12px;}
+	.cart-items li{width:100%;height: 60px;padding: 10px 0;float: left;text-align: left;position: relative;border-top: 1px solid #e0e0e0;}
+	.cart-items li:first-child{border-top: 0;}
+
+	.cart-items img{width: 60px;height: 60px;}
+	.cart-items .image{float: left;}
+	.cart-items .name{float: left;padding: 10px 0;line-height: 20px;width: 100px;height: 40px;}
+	.cart-items .price{float: right;margin-right: 20px;}
+	.cart-items .delete{position: absolute;right: 0px;top: 22px;line-height: 100%;color: #e2e2e2;display: none;}
+	.cart-items a.delete:hover{color: #333;}
+
+	.sum{background-color: #fafafa;padding: 15px 20px;overflow: hidden;}
+	.cart-items .sum-btn{float: right;width: 130px;height: 40px;background-color: #ff6700;color:#fff;}
+	.cart-items a.sum-btn:hover{color: #fff;}
+	.total{float: left;}
+	.sum-amount,.sum-price{display: block;line-height: 100%;}
+	.sum-price{display: block;color: #ff6700;margin-top: 10px;}
+	.sum-price em{font-size: 20px;}
+
+
+	/*nav*/
+	.navbar{height:100px;width: 100%;position: relative;z-index: 20;}
+	.logo{display: block;width: 55px;height: 55px;text-indent: -9999px;background: url(image/mi-logo.png) 50% 50% no-repeat #ff6700;margin-top:22px;float: left;}
+	#nav{float:left;margin-left: 179px;}
+
+	.nav-item{float: left;height: 100px;line-height: 100px;padding: 0 20px 0 15px;font-size: 16px;}
+	.nav-item ul.container{display: none;}
+	#search{width: 299px;height: 50px;margin-top: 25px;float: right;position: relative;}
+	#searchInput{width: 228px;height:48px;border: 1px solid #e0e0e0;border-right: 0;padding: 0 10px;font-size: 14px;}
+	#searchBtn{width: 50px;height: 50px;float: right;font-size: 20px;}
+	.search-btn{border: 1px solid #e0e0e0;color:#333;background-color: #fff;}
+	.search-btn-hover{border: 1px solid #ff6700;color: #fff;background-color: #ff6700;}
+	#searchHot{width: 248px;border: 1px solid #ff6700;border-top: 0;position: absolute;top: 50px;left: 0;display: none;background-color: #fff;color: #333;font-size: 13px;z-index: 22;}
+	#searchHot li{height: 28px;line-height: 28px;padding: 0 10px;cursor: pointer;}
+	#searchHot .stock{float: right;color:#757575;}
+    #example{position: absolute;right: 60px;bottom: 16px;font-size: 12px;}
+    #example span{display: block;float: left;background-color: #f3f3f3;margin-left: 5px;padding:2px;cursor: pointer;color: #333;}
+
+
+	
+	.nav-childitem{position: absolute;top: 100px;left: 0;background-color: #fff;height: 229px;width:100%;box-shadow: 0 3px 4px rgba(0,0,0,0.18);border-top:1px solid #e0e0e0;line-height: 16px;font-size: 12px;display: none;transition:height 0.8s ease-in-out; -webkit-transition: height 0.8s ease-in-out;z-index: 30;}
+	.nav-childitem li{float: left;padding: 35px 12px 0;width:180px;text-align: center;position: relative;}
+	.nav-childitem li::before{content: "";height: 100px;background-color: #e0e0e0;width: 1px;position: absolute;top: 35px;left: 0;}
+	.nav-childitem li.first::before{display: none;}
+	.nav-childitem li a{display: block;}
+	.nav-childitem li img{width: 160px;height: 110px;margin-bottom: 20px;}
+	.nav-childitem li span{display: block;}
+	.nav-childitem p{color: #ff6700;}
+	
+	/*carousel*/
+	.carousel{width: 100%;} 
+	#slideNav{position: absolute;z-index: 10;width: 234px;padding: 20px 0;height: 420px;background-color: rgba(0,0,0,0.6);}
+	#imgLink img{height: 460px;position: relative;top: 0;left: 0;z-index: 1;
+		transition:opacity 0.8s linear;--webkit-transition: opacity 0.8s linear;}
+	.carousel-btn{display: block;width: 40px;height: 70px;position: absolute;z-index: 2;top: 195px;font-size: 24px;text-align: center;line-height: 70px;color: #757573;}
+	.carousel-btn#prev{left: 234px;}
+	.carousel-btn#next{right: 0;}
+	.btn-hover{background-color: rgba(0,0,0,0.3);}
+	#circles{position: absolute; bottom: 30px;right: 30px;z-index: 2;}
+	#circles li{width: 6px;height: 6px;background-color: rgba(0,0,0,0.4);border:2px solid rgba(255,255,255,0.3);border-radius: 10px;float: left;margin-right: 10px;cursor: pointer;transition:all 0.3s ease-in-out;--webkit-transition: all 0.3s ease-in-out;}
+
+	.slideNav-item{height: 42px;line-height: 42px;padding: 0 30px;}
+	.slideNav-item a{color:#fff;font-size: 14px;display: block;}
+	.slideNav-item i{float: right;color: #959595;font-size: 20px;}
+	.slideNav-childitem{position: absolute;left: 234px;top: 0;height: 458px;background-color: #fff;border:1px solid #e0e0e0;border-left: 0;box-shadow: 2px 2px 5px rgba(0,0,0,0.18);width: 795px;display: none;}
+	.slideNav-childitem ul{width: 265px;height: 100%;float: left;}
+	.slideNav-childitem li{height: 76px;width: 100%;position: relative;}
+	.slideNav-childitem .goodLink{display: block;width: 170px;color: #333;line-height: 40px;padding: 18px 0 18px 20px;}
+	.slideNav-childitem img{width: 40px;height: 40px;vertical-align: middle;}
+	.slideNav-childitem .title{font-size: 14px;}
+	.slideNav-childitem .buy{display: block;position: absolute;width: 58px;height: 22px;border: 1px solid #ff6700;color: #ff6700;line-height: 24px;text-align: center;font-size: 12px;top: 27px;right: 20px;}
+
+	.promo{margin-top: 14px;height: 170px;color:rgba(255,255,255,0.7);}
+	.promo a{color: #ccc;}
+	.promo a:hover{color:#fff;}
+	.channel{width: 234px;height: 100%;background-color: #5f5750;float: left;}
+	.channel li{width: 78px;height: 85px;float: left;position: relative;text-align: center;}
+	.channel i{font-size: 24px;display: block;margin-top: 20px;}
+	.channel span{display: block;}
+	.bottom::before{content: "";background-color: #665e57;height: 1px;width: 64px;position: absolute;left: 6px;bottom: -1px;}
+	.right::after{content: "";background-color: #665e57;width: 1px;height: 70px;position: absolute;top: 6px;right: -1px;}
+
+
+	.promo-list{float: left;}
+	.promo-list img{width: 314px;height: 170px;}
+	.promo-list li{float: left;margin-left:17px;}
+	.promo-list li:first-child{margin-left: 16px;}
+
+	</style>
+</head>
+<body>
+	<header class="header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="">小米网</a>|
+				<a href="">MIUI</a>|
+				<a href="">米聊</a>|
+				<a href="">游戏</a>|
+				<a href="">多看阅读</a>|
+				<a href="">云服务</a>|
+				<a href="">小米移动版</a>|
+				<a href="">问题反馈</a>|
+				<a href="">Select Region</a>
+			</div>
+			<div id="J_cart" class="header-cart">
+				<a href="" class="cart-trigger cart-trigger-normal" id="J_trigger"><i class="iconfont">&#xe604;</i>购物车(<span id="J_amount">0</span>)</a>
+				<div id="J_miniCart" class="cart-items">
+					<span class="tip">购物车中还没有商品，赶紧选购吧！</span>
+				</div>
+			</div>
+			<div class="header-userinfo">
+				<a href="">登录</a>|
+				<a href="">注册</a>
+			</div>
+		</div>
+	</header>
+	<section>
+		<div class="navbar">
+			<div class="container">
+				<a href="" class="logo">小米官网</a>
+				<ul id='nav'>
+					<li class="nav-item"><a href="">小米手机</a>
+						<!-- <div class="nav-childitem"> -->
+							<ul class="container">
+								<li class="first">
+									<a href=""><img src="image/nav/mi4c!320x220.jpg" alt=""><span>小米手机4c<span></a>
+									<p>1299元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/mi4!320x220.jpg" alt=""><span>小米手机4</span></a>
+									<p>1299元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/minote!320x220.jpg" alt=""><span>小米note 标准版</span></a>
+									<p>1799元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/minotepro!320x220.jpg" alt=""><span>小米note 顶配版</span></a>
+									<p>2999元起</p>
+								</li>
+							</ul>
+						<!-- </div> -->
+					</li>
+					<li  class="nav-item"><a href="">红米</a>
+						<!-- <div class="nav-childitem"> -->
+							<ul class="container">
+								<li class="first">
+									<a href=""><img src="image/nav/hongmi2a!320x220.jpg" alt=""><span>红米手机2A 增强版<span></a>
+									<p>特价499元</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/hongmi2!320x220.jpg" alt=""><span>红米手机2</span></a>
+									<p>599元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/note!320x220.jpg" alt=""><span>红米note 电信版</span></a>
+									<p>699元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/note2!320x220.jpg" alt=""><span>红米note 2</span></a>
+									<p>799元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/note3!320x220.jpg" alt=""><span>红米note 3</span></a>
+									<p>899元起</p>
+								</li>
+							</ul>
+						<!-- </div> -->
+					</li>
+					<li  class="nav-item"><a href="">平板</a>
+						<!-- <div class="nav-childitem"> -->
+							<ul class="container">
+								<li class="first">
+									<a href=""><img src="image/nav/mipad2-16!320x220.jpg" alt=""><span>小米平板2 16GB<span></a>
+									<p>999元</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/mipad2-64!320x220.jpg" alt=""><span>小米平板2 64GB</span></a>
+									<p>1299元</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/mipad2-64-win!320x220.jpg" alt=""><span>小米平板2 64GB windows版</span></a>
+									<p>1299元</p>
+								</li>
+							</ul>
+						<!-- </div> -->
+					</li>
+					<li  class="nav-item"><a href="">电视·盒子</a>
+						<!-- <div class="nav-childitem"> -->
+							<ul class="container">
+								<li class="first">
+									<a href=""><img src="image/nav/mitv40!320x220.jpg" alt=""><span>小米电视2 40英寸<span></a>
+									<p>1999元</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/mitv48!320x220.jpg" alt=""><span>小米电视2/2S 48/49英寸</span></a>
+									<p>2999元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/mitv3-55!320x220.jpg" alt=""><span>小米电视3 55英寸</span></a>
+									<p>3999元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/mitv60!320x220.jpg" alt=""><span>小米电视3 60英寸<span></a>
+									<p>4999元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/tvzj.png" alt=""><span>小米电视主机</span></a>
+									<p>999元</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/hezi3.png" alt=""><span>小米盒子3</span></a>
+									<p>299元</p>
+								</li>
+							</ul>
+						<!-- </div> -->
+					</li>
+					<li  class="nav-item"><a href="">路由器</a>
+						<!-- <div class="nav-childitem"> -->
+							<ul class="container">
+								<li class="first">
+									<a href=""><img src="image/nav/miwifi!320x220.jpg" alt=""><span>全新小米路由器<span></a>
+									<p>699元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/miwifimini!320x220.jpg" alt=""><span>小米路由器mini</span></a>
+									<p>129元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/miwifilite!320x220.jpg" alt=""><span>小米路由器青春版</span></a>
+									<p>79元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/wifiExtension!320x220.jpg" alt=""><span>小米wifi放大器<span></a>
+									<p>39元起</p>
+								</li>
+							</ul>
+						<!-- </div> -->
+					</li>
+					<li  class="nav-item"><a href="">智能硬件</a>
+					<!-- 	<div class="nav-childitem"> -->
+							<ul class="container">
+								<li class="first">
+									<a href=""><img src="image/nav/miwifi!320x220.jpg" alt=""><span>全新小米路由器<span></a>
+									<p>699元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/miwifimini!320x220.jpg" alt=""><span>小米路由器mini</span></a>
+									<p>129元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/miwifilite!320x220.jpg" alt=""><span>小米路由器青春版</span></a>
+									<p>79元起</p>
+								</li>
+								<li>
+									<a href=""><img src="image/nav/wifiExtension!320x220.jpg" alt=""><span>小米wifi放大器<span></a>
+									<p>39元起</p>
+								</li>
+							</ul>
+					<!-- 	</div> -->
+					</li>
+					<li  class="nav-item"><a href="">服务</a></li>
+					<li  class="nav-item"><a href="">社区</a></li>
+				</ul>
+				<div id="search">
+					<form action="" id="searchForm">
+						<input type="text" id="searchInput">
+						<button id="searchBtn" class="search-btn" type="submit"><i class="iconfont">&#xe603;</i></button>
+					</form>
+					<div id="example">
+						<span>手环</span>
+						<span>小米手机4</span>
+					</div>
+					<ul id="searchHot">
+					</ul>
+				</div>
+			</div>
+			<div id="navChildList" class="nav-childitem">
+				<ul class="container"></ul>
+			</div>
+		</div>
+		<div class="carousel">
+			<div class="container">
+				<ul id="slideNav">
+					<li class="slideNav-item"><a href="">手机 平板 电话卡<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/minote/" class="goodLink"><img src="image/slideNav/minote.jpg"><span class="title">小米note</span></a>
+									<a href="http://item.mi.com/buyphone/minote" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mi4/" class="goodLink"><img src="image/slideNav/mi4.jpg"><span class="title">小米手机4</span></a>
+									<a href="http://item.mi.com/buyphone/mi4" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mi4c/" class="goodLink"><img src="image/slideNav/mi4c.jpg"><span class="title">小米手机4c</span></a>
+									<a href="http://item.mi.com/buyphone/mi4c" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/note3/" class="goodLink"><img src="image/slideNav/note3.jpg"><span class="title">红米note3</span></a>
+									<a href="http://item.mi.com/buyphone/note3" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/note2/" class="goodLink"><img src="image/slideNav/note2.jpg"><span class="title">红米note2</span></a>
+									<a href="http://item.mi.com/buyphone/note2" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/note4gds/" class="goodLink"><img src="image/slideNav/note.jpg"><span class="title">红米note电信版</span></a>
+									<a href="http://item.mi.com/buyphone/note" class="buy">选购</a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="http://www.mi.com/hongmi2/" class="goodLink"><img src="image/slideNav/hongmi2.jpg"><span class="title">红米手机2</span></a>
+									<a href="http://item.mi.com/buyphone/hongmi2" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/hongmi2a/" class="goodLink"><img src="image/slideNav/hongmi2a.jpg" ><span class="title">红米手机2A</span></a>
+									<a href="http://item.mi.com/buyphone/hongmi2a" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/pad2/" class="goodLink"><img src="image/slideNav/pad2.png"><span class="title">小米平板2</span></a>
+									<a href="http://item.mi.com/buyphone/pad2" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/telcom/" class="goodLink"><img src="image/slideNav/telcom.jpg"><span class="title">电信版</span></a>
+									<a href="http://item.mi.com/buyphone/telcom" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/heyue/" class="goodLink"><img src="image/slideNav/heyue.jpg"><span class="title">合约机</span></a>
+									<a href="http://item.mi.com/buyphone/heyue" class="buy">选购</a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/zhongxin/" class="goodLink"><img src="image/slideNav/zhongxin.jpg"><span class="title">中信特权</span></a>
+									<a href="http://item.mi.com/buyphone/zhongxin" class="buy">选购</a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="http://www.mi.com/compare/" class="goodLink"><img src="image/slideNav/compare.jpg"><span class="title">对比手机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/hongmi2a/" class="goodLink"><img src="image/slideNav/mimobile.jpg" ><span class="title">小米移动电话卡</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">电视 盒子<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/tv40.jpg"><span class="title">小米电视 40英寸</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/tv48.jpg" ><span class="title">小米电视 48英寸</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv49/" class="goodLink"><img src="image/slideNav/tv49.jpg"><span class="title">小米电视 49英寸</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/tv3-55.jpg" ><span class="title">小米电视 55英寸</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv60/" class="goodLink"><img src="image/slideNav/tv60.jpg"><span class="title">小米电视 60英寸</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/hezis.jpg"><span class="title">小米盒子3</span></a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="http://www.mi.com/tvzj/" class="goodLink"><img src="image/slideNav/tvzj.jpg"><span class="title">小米电视主机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/diyinpao/" class="goodLink"><img src="image/slideNav/diyinpao.jpg" ><span class="title">小米低音炮</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/shb/" class="goodLink"><img src="image/slideNav/shb.jpg"><span class="title">蓝牙手柄</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/dianshipeijian/" class="goodLink"><img src="image/slideNav/dianshipeijian.jpg" ><span class="title">电视盒子配件</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">路由器 智能硬件<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/miwifi.jpg"><span class="title">路由器</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/scooter.jpg"><span class="title">九号平衡车</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/shouhuan.jpg" ><span class="title">手环及配件</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv49/" class="goodLink"><img src="image/slideNav/scale.jpg"><span class="title">体重秤</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/ihealthbluetooth.jpg" ><span class="title">血压计</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv60/" class="goodLink"><img src="image/slideNav/zhinengtaozhuang.jpg"><span class="title">智能家庭套装</span></a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/miwifimini.jpg"><span class="title">路由器 mini</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/water.jpg"><span class="title">净水器</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/air.jpg" ><span class="title">空气净化器</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv49/" class="goodLink"><img src="image/slideNav/xiaoyi.jpg"><span class="title">摄像机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/yicamera.jpg" ><span class="title">运动相机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv60/" class="goodLink"><img src="image/slideNav/chuangtoudeng.jpg"><span class="title">床头灯</span></a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/miwifilite.jpg"><span class="title">路由器 青春版</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/jiancebi.jpg"><span class="title">水质检测笔</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/air2.jpg" ><span class="title">空气净化器2</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv49/" class="goodLink"><img src="image/slideNav/lvxinsidebar.jpg"><span class="title">除甲醛滤芯</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/wifiplus.jpg" ><span class="title">wifi放大器</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv60/" class="goodLink"><img src="image/slideNav/smart.jpg"><span class="title">全部智能硬件</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">移动电源 插线板<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/dianyuan.jpg"><span class="title">小米移动电源</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/powerscript.jpg"><span class="title">小米插线板</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/yidongdianyuan.jpg" ><span class="title">品牌移动电源</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv49/" class="goodLink"><img src="image/slideNav/dianyuanfujian.jpg"><span class="title">移动电源附件</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">耳机 音箱<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/headphone.jpg"><span class="title">小米头戴式耳机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/quantie.jpg"><span class="title">小米圈铁耳机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/huosai.jpg" ><span class="title">小米活塞耳机 标准版</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv49/" class="goodLink"><img src="image/slideNav/xuancai.jpg"><span class="title">小米活塞耳机 炫彩版</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/bluetoothheadset.jpg" ><span class="title">小米蓝牙耳机</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv60/" class="goodLink"><img src="image/slideNav/erji.jpg"><span class="title">品牌耳机</span></a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/xiaogangpao.jpg"><span class="title">小钢炮音箱</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/fanghezi.jpg"><span class="title">小米方盒子音箱</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/pinpaiyinxiang.jpg" ><span class="title">品牌音箱</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">电池 存储卡<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/rainbow80.jpg"><span class="title">彩虹5号电池</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/dianchi.jpg"><span class="title">电池</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/chongdian.jpg" ><span class="title">充电器</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/xiancai.jpg" ><span class="title">线材</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv48/" class="goodLink"><img src="image/slideNav/cunchu.jpg" ><span class="title">存储卡</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">保护套 后盖<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/baohu.jpg"><span class="title">保护套/保护壳</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/hougai.jpg"><span class="title">后盖</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">贴膜 其他配件<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/tiemo.jpg"><span class="title">贴膜</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/zipaigan.jpg"><span class="title">自拍杆</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/tizhi.jpg"><span class="title">贴纸</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/fangchensai.jpg"><span class="title">防尘塞</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/zhijia.jpg"><span class="title">手机支架</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/wifi.jpg"><span class="title">随身wifi</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">米兔 服装<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/mitu.jpg"><span class="title">米兔</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/fuzhuang.jpg"><span class="title">服装</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="slideNav-item"><a href="">箱包 其它周边<i class="iconfont">&#xe602;</i></a>
+						<div class="slideNav-childitem">
+							<ul>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/bag.jpg"><span class="title">箱包</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/lvxingxiang.jpg"><span class="title">90分旅行箱</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/mitv3/55/" class="goodLink"><img src="image/slideNav/shubiaodian.jpg"><span class="title">小米鼠标垫</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/zhoubian.jpg"><span class="title">生活周边</span></a>
+								</li>
+								<li>
+									<a href="http://www.mi.com/tv40/" class="goodLink"><img src="image/slideNav/wan.jpg"><span class="title">酷玩产品</span></a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<a href="" id="imgLink"></a>
+				<a href="javascript:void(0);" id="prev" class="carousel-btn"><i class="iconfont">&#xe600;</i></a>
+				<a href="javascript:void(0);" id="next" class="carousel-btn"><i class="iconfont">&#xe601;</i></a>
+				<ul id='circles'></ul>
+			</div>
+		</div>
+		<div class="promo">
+			<div class="container">
+				<div class="channel">
+					<ul>
+						<li class="bottom right"><a href=""><i class="iconfont">&#xe606;</i><span>电信专场</span></a></li>
+						<li class="bottom right"><a href=""><i class="iconfont">&#xe608;</i><span>企业团购</span></a></li>
+						<li class="bottom"><a href=""><i class="iconfont">&#xe60a;</i><span>官翻产品</span></a></li>
+						<li class="right"><a href=""><i class="iconfont">&#xe609;</i><span>小米移动</span></a></li>
+						<li class="right"><a href=""><i class="iconfont">&#xe60b;</i><span>话费充值</span></a></li>
+						<li><a href=""><i class="iconfont">&#xe607;</i><span>防伪查询</span></a></li>
+					</ul>
+				</div>
+				<ul class="promo-list">
+					<li><a href=""><img src="image/promo/promo1.jpg" alt=""></a></li>
+					<li><a href=""><img src="image/promo/promo2.jpg" alt=""></a></li>
+					<li><a href=""><img src="image/promo/promo3.jpg" alt=""></a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section></section>
+	<section></section>
+	<section></section>
+	<footer></footer>
+</body>
+<script type="text/javascript">
+	(function(window){ //购物车
+		window.cartHandler={
+			initEvent:fInitEvent,
+			getCartList:fGetCartList,
+			html:fHtml,
+			_goods:[]
+		};
+		var timeout;
+
+		function fInitEvent(){
+			var me=this;
+			var oAmount=document.getElementById('J_amount'),
+			    oMiniCart=document.getElementById('J_miniCart'),
+			    oCart=document.getElementById('J_cart'),
+			    oTrigger=document.getElementById('J_trigger');
+
+			me.getCartList();
+			if(me._goods.length>0){
+				oAmount.innerHTML=me._goods.length;
+				oMiniCart.innerHTML=me.html(me._goods);
+				oTrigger.className='cart-trigger cart-trigger-em';
+				var oItem=oMiniCart.getElementsByTagName('li');
+				for(var i=0;i<oItem.length;i++){
+					oItem[i].addEventListener('mouseover',function(){
+						var oDelete=this.getElementsByClassName('delete')[0];
+						oDelete.style.display='block';
+					});
+					oItem[i].addEventListener('mouseout',function(){
+						var oDelete=this.getElementsByClassName('delete')[0];
+						oDelete.style.display='none';
+					});
+				}
+			}
+
+			oCart.addEventListener('mouseover',function(){
+				oTrigger.className='cart-trigger cart-trigger-hover';
+				oMiniCart.style.display='block';
+			});
+			oCart.addEventListener('mouseout',function(){
+				if(me._goods.length>0){
+					oTrigger.className='cart-trigger cart-trigger-em';
+				}else{
+					oTrigger.className='cart-trigger cart-trigger-normal';
+				}
+				oMiniCart.style.display='none';
+			});
+		}
+
+		function fHtml(_goods){
+			var html='<ul class="clearfix">';
+			var sumPrice=0;
+			for(var i=0;i<_goods.length;i++){
+				html+='<li><a href="" class="image"><img src="'+_goods[i].image+'"></a><a href="" class="name">'+_goods[i].name+'</a><span class="price">'+_goods[i].price+'元 × '+_goods[i].amount+'</span><a href="javascript:void(0);" class="delete"><i class="iconfont">&#xe605;</i></a></li>';
+				sumPrice+=_goods[i].price*_goods[i].amount;
+			}
+			html+='</ul><div class="sum"><div class="total"><span class="sum-amount">共'+_goods.length+'件商品</span><span class="sum-price"><em>'+sumPrice+'元</em></span></div><a href="" class="sum-btn">去购物车结算</a></div>';
+			return html;
+		}
+
+		function fGetCartList(){
+			var me=this;
+			me._goods=[{
+				id:'000001',
+				image:'image/slideNav/tv48.jpg',
+				name:'小米电视 48英寸',
+				price:2999,
+				amount:1
+			},{
+				id:'000002',
+				image:'image/slideNav/mi4.jpg',
+				name:'小米手机4 64GB 顶配版',
+				price:1299,
+				amount:1
+			},{
+				id:'0000003',
+				image:'image/slideNav/powerscript.jpg',
+				name:'小米 插线板',
+				price:49,
+				amount:2
+			}];
+		}
+
+	})(window);
+
+	(function(window){ //搜索框
+		window.searchHandler={
+			_hots:[],
+			init:fInit,
+			initEvent:fInitEvent,
+			getHot:fGetHot,
+			getList:fGetList,
+			showList:fShowList,
+			hideList:fHideList,
+		};
+
+		function fInit(){
+			var me=this;
+			me.getHot();
+			me.getList();
+			me.initEvent();
+		}
+
+		function fInitEvent(){
+			var me=this;
+			var oBtn=document.getElementById('searchBtn'),
+			    oInput=document.getElementById('searchInput'),
+			    oHot=document.getElementById('searchHot'),
+			    oHotList=oHot.getElementsByTagName('li'),
+			    oExample=document.getElementById('example'),
+			    oExampleList=oExample.getElementsByTagName('span'),
+			    oForm=document.getElementById('searchForm');
+
+			oBtn.addEventListener('mouseover',function(){
+				oBtn.className="search-btn-hover";
+			});
+			oBtn.addEventListener('mouseout',function(){
+				oBtn.className="search-btn";
+			});
+
+			oInput.addEventListener('focus',function(){
+				oInput.style.borderColor='#ff6700';
+				oBtn.style.borderColor='#ff6700';
+				me.showList();
+				oExample.style.display='none';
+
+			});
+			oInput.addEventListener('blur',function(){
+				oInput.style.borderColor='#e0e0e0';
+				oBtn.style.borderColor='#e0e0e0';
+				oExample.style.display='block';
+
+				setTimeout(function(){
+					me.hideList();
+				},200);
+				
+			});
+
+			for(var i=0;i<oHotList.length;i++){
+				oHotList[i].addEventListener('mouseover',function(){
+					this.style.background='#f2f2f2';
+				});
+				oHotList[i].addEventListener('mouseout',function(){
+					this.style.background='#fff';
+				});
+				oHotList[i].addEventListener('click',function(){
+					oForm.submit();
+				});
+			}
+
+			for(var j=0;j<oExampleList.length;j++){
+				oExampleList[j].addEventListener('mouseover',function(){
+					this.style.background='#ff6700';
+					this.style.color='#fff';
+				});
+				oExampleList[j].addEventListener('mouseout',function(){
+					this.style.background='#f3f3f3';
+					this.style.color='#333';
+				});
+				oExampleList[j].addEventListener('click',function(){
+					oInput.value=this.innerHTML;
+					oForm.submit();
+				});
+			}
+		}
+
+		function fShowList(){
+			var oHot=document.getElementById('searchHot');
+			oHot.style.display="block";
+		}
+		function fHideList(){
+			var oHot=document.getElementById('searchHot');
+			oHot.style.display="none";
+		}
+
+		function fGetList(){
+			var me=this;
+			var shtml='';
+			var oHot=document.getElementById('searchHot');
+			for(var i=0;i<me._hots.length;i++){
+				shtml+='<li>'+me._hots[i].good+'<span class="stock">约有'+me._hots[i].amount+'件</span></li>';
+			}
+			oHot.innerHTML=shtml;
+		}
+
+		function fGetHot(){
+			var me=this;
+			//此处后台获取热搜商品和库存
+			me._hots=[{
+				good:'移动电源',
+				amount:22,
+			},{
+				good:'空气净化器',
+				amount:2,
+			},{
+				good:'小米手环',
+				amount:5
+			},{
+				good:'WIFI',
+				amount:7
+			},{
+				good:'自拍杆',
+				amount:4
+			},{
+				good:'小米体重秤',
+				amount:1
+			},{
+				good:'小蚁摄像机',
+				amount:2
+			},{
+				good:'运动相机',
+				amount:2
+			},{
+				good:'智能插座',
+				amount:5
+			},{
+				good:'配件优惠套装',
+				amount:15
+			}];
+
+		}
+	})(window);
+
+
+	(function(window){ //导航栏相关
+		window.navHandler={
+			initEvent:fInitEvent,
+			showChildItem:fShowChildItem,
+			hideChildItem:fHideChildItem,
+			ajustWidth:fAjustWidth,
+			slideDown:fSlideDown,
+			slideUp:fSlideUp
+		};
+		var timeout;
+
+		function fInitEvent(){
+			var me=this;
+			var oSlideNav=document.getElementById('slideNav'),
+			    oItem=oSlideNav.getElementsByClassName('slideNav-item'),
+			    oNav=document.getElementById('nav'),
+			    oNavItem=oNav.getElementsByClassName('nav-item'),
+			    oNavChildList=document.getElementById('navChildList');
+			for(var i=0;i<oItem.length;i++){
+				oItem[i].addEventListener('mouseover',function(){
+					this.style.background='#ff6700';
+					me.ajustWidth(this);
+					me.showChildItem(this);
+				});
+				oItem[i].addEventListener('mouseout',function(){
+					this.style.background='transparent';
+					me.hideChildItem(this);
+				});
+			}
+			for(var j=0;j<6;j++){
+				oNavItem[j].addEventListener('mouseover',function(){
+					clearTimeout(timeout);
+					me.slideDown(this);
+				});
+				oNavItem[j].addEventListener('mouseout',function(){
+					timeout=setTimeout(function(){
+						me.slideUp();
+					},200);
+				});
+			}
+			oNavChildList.addEventListener('mouseover',function(){
+				clearTimeout(timeout);
+			});
+			oNavChildList.addEventListener('mouseout',function(){
+				timeout=setTimeout(function(){
+					me.slideUp();
+				},200);
+			});
+		}
+		function fShowChildItem(oItem){
+			var oChildItem=oItem.getElementsByTagName('div')[0];
+			oChildItem.style.display='block';
+		}
+		function fHideChildItem(oItem){
+			var oChildItem=oItem.getElementsByTagName('div')[0];
+			oChildItem.style.display='none';
+		}
+		function fAjustWidth(oItem){
+			var oChildItem=oItem.getElementsByTagName('div')[0],
+			    column=oChildItem.getElementsByTagName('ul').length;
+			if(column==1){
+				oChildItem.style.width='265px';
+			}else if(column==2){
+				oChildItem.style.width='530px';
+			}
+		}
+
+		function fSlideDown(oItem){
+			var shtml=oItem.getElementsByTagName('ul')[0].innerHTML;
+			var oNavChildList=document.getElementById('navChildList');
+			oNavChildList.getElementsByTagName('ul')[0].innerHTML=shtml;
+			oNavChildList.style.display='block';
+		}
+		function fSlideUp(){
+			var oNavChildList=document.getElementById('navChildList');
+			oNavChildList.style.display='none';
+		}
+
+	})(window);
+
+
+	(function(window){ //轮播图
+		window.carouselHandler={
+			isAuto:true,  //boolean,是否自动轮播
+			_imgs:[],
+			init:fInit,
+			initEvent:fInitEvent,
+			
+			getImgs:fGetImgs,
+			showImage:fShowImage,
+			nextImage:fNextImage,
+			prevImage:fPrevImage,
+			showCircles:fShowCircles,
+			currentCircle:fCurrentCirlce,
+			unCurrentCircle:fUnCurrentPage
+		};
+		var nImg=0;
+
+		function fInit(){
+			var me=this;
+			me.getImgs();
+			me.showCircles();
+			me.showImage(nImg);
+			//自动轮播
+			if(me.isAuto){
+				setInterval(function(){
+					me.nextImage();
+				},10000);
+			}
+			me.initEvent();
+		}
+
+		function fInitEvent(){ //监听事件
+			var me=this;
+			var oPrev=document.getElementById('prev'),
+			    oNext=document.getElementById('next'),
+			    oLis=document.getElementById('circles').getElementsByTagName('li');
+
+			oPrev.addEventListener('mouseover',function(){
+				oPrev.className='carousel-btn btn-hover';
+			});
+			oPrev.addEventListener('mouseout',function(){
+				oPrev.className='carousel-btn';
+			});
+			oPrev.addEventListener('click',function(){
+				me.prevImage();
+			});
+
+
+			oNext.addEventListener('mouseover',function(){
+				oNext.className='carousel-btn btn-hover';
+			});
+			oNext.addEventListener('mouseout',function(){
+				oNext.className='carousel-btn';
+			});
+			oNext.addEventListener('click',function(){
+				me.nextImage();
+			});
+
+			for(var i=0;i<me._imgs.length;i++){
+				oLis[i].addEventListener('mouseover',function(i){
+					this.style.background='rgba(255,255,255,0.4)';
+				});
+				oLis[i].addEventListener('mouseout',function(){
+					this.style.background='rgba(0,0,0,0.4)';
+				});
+				oLis[i].addEventListener('click',function(){
+					var j=this.id.substring(6)-0;
+					me.showImage(j);
+				});
+			}
+		}
+
+		function fGetImgs(){
+			var me=this;
+			//此处可从后台获取图片url
+			me._imgs=[{
+				url:'carousel/carousel-1.jpg',
+				link:'http://mipop.xiaomi.cn/activity/sign/aid/18'
+			},{
+				url:'carousel/carousel-2.jpg',
+				link:'http://item.mi.com/buyphone/note3'
+			},{
+				url:'carousel/carousel-3.jpg',
+				link:'http://www.mi.com/mipad2/'
+			},{
+				url:'carousel/carousel-4.jpg',
+				link:'http://www.mi.com/water/'
+			},{
+				url:'carousel/carousel-5.jpg',
+				link:'http://item.mi.com/buyphone/mi4c'
+			}];
+		}
+		function fShowImage(nImg){
+			var me=this;
+			var oImgLink=document.getElementById('imgLink'),
+			    ohtml='<img src='+me._imgs[nImg].url+'>';  
+			    // oImgSrc=document.getElementById('imgSrc');
+			oImgLink.href=me._imgs[nImg].link;
+			oImgLink.innerHTML=ohtml;
+			// oImgSrc.src=me._imgs[nImg].url;
+			me.currentCircle(nImg);
+		}
+		function fNextImage(){
+			var me=this;
+			me.unCurrentCircle();
+			nImg+=1;
+			if(nImg>=me._imgs.length){
+				nImg=0;
+			}
+			me.showImage(nImg);
+		}
+		function fPrevImage(){
+			var me=this;
+			me.unCurrentCircle();
+			nImg-=1;
+			if(nImg<0){
+				nImg=me._imgs.length-1;
+			}
+			me.showImage(nImg);
+		}
+
+		function fShowCircles(){
+			var me=this;
+			var shtml='';
+			var oCircles=document.getElementById('circles');
+			for(i=0;i<me._imgs.length;i++){
+				shtml+='<li id=circle'+i+'></li>';
+			}
+			oCircles.innerHTML=shtml;
+		}
+		function fCurrentCirlce(nImg){
+			var oLis=document.getElementById('circles').getElementsByTagName('li');
+			oLis[nImg].style.background='rgba(255,255,255,0.4)';
+		}
+		function fUnCurrentPage(){
+			var oLis=document.getElementById('circles').getElementsByTagName('li');
+			oLis[nImg].style.background='rgba(0,0,0,0.4)';
+		}
+	})(window);
+
+
+	window.onload=function(){
+		cartHandler.initEvent();
+		navHandler.initEvent();
+		searchHandler.init();
+		carouselHandler.init();
+	};
+
+</script>
+</html>
